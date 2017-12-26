@@ -1,34 +1,26 @@
-class Box2D(
-    var x: Double = 0, var y: Double = 0,
-    var h: Double = 0, var w: Double = 0,
-    var angle: Double =
-        get() = field
-        set(value) = field = value - value * Int(value / 2 / PI)) {
-    init {
-        if (h < 0 || w < 0) throw "уккщк! ВАША ДЛИНА МЕНЬШЕ НУЛЯ))"
-    }
-}
+package com.mygdx.game
 
-const val g = 9.8
+import com.badlogic.gdx.math.Vector2
+import com.mygdx.game.util.*
 
 class Car(
-    val koeff: Double,
-    val mu: Double = 0.7,
-    val maxAcceleration: Double,
-    val mass: Double = 1000,
-    var collider = Box2D(0, 0, 7, 20),
-    var speed: Vector2D = 0,
-    var acceleration: Vector2D = 0) {
+        val koeff: Double,
+        val mu: Double = 0.7,
+        val maxAcceleration: Double,
+        val mass: Double = 1000.0,
+        var collider: MyBox = MyBox(0.0, 0.0, 7.0, 20.0),
+        var speed: Vector2 = Vector2.Zero,
+        var acceleration: Vector2 = Vector2.Zero) {
 
     fun turn(delta: Double, userForce: Double, userRotation: Double) {
         collider.x += speed.x * delta
         collider.y += speed.y * delta
-        var tyaga = acceleration.normalized *
+        val tyaga = acceleration.nor() *
             Math.min(
-                acceleration.abs,
+                acceleration.len().toDouble(),
                 maxAcceleration - koeff * Math.exp(-userForce)
             )
-        acceleration = tyaga - Math.sin(userRotation) * mu * mass * g
+        acceleration = tyaga - Math.sin(userRotation) * mu * mass * MyBox.g * -speed.nor()
         speed += delta * acceleration
     }
 }
