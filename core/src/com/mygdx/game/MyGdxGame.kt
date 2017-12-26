@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 class MyGdxGame : ApplicationAdapter() {
     lateinit var batch: SpriteBatch
     lateinit var img: Texture
+    var car = Car()
 
     override fun create() {
         batch = SpriteBatch()
@@ -19,7 +20,10 @@ class MyGdxGame : ApplicationAdapter() {
         Gdx.gl.glClearColor(1f, 0f, 0f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
         batch.begin()
-        batch.draw(img, 0f, 0f)
+
+        car.turn(Gdx.graphics.deltaTime.toDouble(), Gdx.input.y.toDouble(), Gdx.input.rotation.toDouble())
+
+        batch.draw(img, car.collider.x.toFloat(), car.collider.y.toFloat())
         batch.end()
     }
 

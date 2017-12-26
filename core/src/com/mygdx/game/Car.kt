@@ -4,9 +4,9 @@ import com.badlogic.gdx.math.Vector2
 import com.mygdx.game.util.*
 
 class Car(
-        val koeff: Double,
+        val koeff: Double = 0.4,
         val mu: Double = 0.7,
-        val maxAcceleration: Double,
+        val maxAcceleration: Double = 1000.0,
         val mass: Double = 1000.0,
         var collider: MyBox = MyBox(0.0, 0.0, 7.0, 20.0),
         var speed: Vector2 = Vector2.Zero,
@@ -20,7 +20,8 @@ class Car(
                 acceleration.len().toDouble(),
                 maxAcceleration - koeff * Math.exp(-userForce)
             )
-        acceleration = tyaga - Math.sin(userRotation) * mu * mass * MyBox.g * -speed.nor()
+        acceleration = tyaga * (1 - MyBox.roundFriction) -
+                Math.sin(userRotation) * mu * mass * MyBox.g * speed.nor()
         speed += delta * acceleration
     }
 }

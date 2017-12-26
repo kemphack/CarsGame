@@ -9,6 +9,7 @@ class MyBox(
 
     companion object {
         const val g = 9.8
+        const val roundFriction = 0.2
     }
 
     var angle: Double = 0.0
