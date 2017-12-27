@@ -2,6 +2,7 @@ package com.mygdx.game
 
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input.Keys
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
@@ -21,9 +22,18 @@ class MyGdxGame : ApplicationAdapter() {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
         batch.begin()
 
-        car.turn(Gdx.graphics.deltaTime.toDouble(), Gdx.input.y.toDouble(), Gdx.input.rotation.toDouble())
+        var x = 0.0
+        var y = 0.0
+        val speed = 1.0
 
-        batch.draw(img, car.collider.x.toFloat(), car.collider.y.toFloat())
+        if(Gdx.input.isKeyPressed(Keys.A)) x -= speed
+        if(Gdx.input.isKeyPressed(Keys.D)) x += speed
+        if(Gdx.input.isKeyPressed(Keys.W)) y += speed
+        if(Gdx.input.isKeyPressed(Keys.S)) y -= speed
+
+        car.turn(Gdx.graphics.deltaTime, x.toFloat(), y)
+
+        batch.draw(img, car.collider.coords.x, car.collider.coords.y)
         batch.end()
     }
 
