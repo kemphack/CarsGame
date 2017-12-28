@@ -22,16 +22,16 @@ class MyGdxGame : ApplicationAdapter() {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
         batch.begin()
 
-        var x = 0.0
-        var y = 0.0
-        val speed = 1.0
+        var x = 0.0f
+        var y = 0.0f
+        val speed = 1.0f
 
-        if(Gdx.input.isKeyPressed(Keys.A)) x -= speed
-        if(Gdx.input.isKeyPressed(Keys.D)) x += speed
-        if(Gdx.input.isKeyPressed(Keys.W)) y += speed
-        if(Gdx.input.isKeyPressed(Keys.S)) y -= speed
+        if(Gdx.input.isKeyPressed(Keys.A)) y += speed
+        if(Gdx.input.isKeyPressed(Keys.D)) y -= speed
+        if(Gdx.input.isKeyPressed(Keys.W)) x += speed
+        if(Gdx.input.isKeyPressed(Keys.S)) x -= speed
 
-        car.turn(Gdx.graphics.deltaTime, x.toFloat(), y)
+        car.turn(Gdx.graphics.deltaTime, x, y)
 
         batch.draw(img, car.collider.coords.x, car.collider.coords.y)
         batch.end()

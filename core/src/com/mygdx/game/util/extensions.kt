@@ -13,7 +13,7 @@ operator fun Vector2.times(f : Float) = Vector2(x * f, y * f)
 
 val Vector2.normalized: Vector2
     get() =
-        if (this.x == 0f || this.y == 0f) Vector2.Zero
+        if(this.isZero) Vector2.Zero
         else Vector2(this) / this.len()
 
 val Vector2.abs get() = this.len()
