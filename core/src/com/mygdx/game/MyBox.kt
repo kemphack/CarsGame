@@ -13,7 +13,11 @@ class MyBox(
         const val g = 9.8f
     }
 
-    var direction: Vector2 = Vector2(Math.cos(rotation_angle).toFloat(), Math.sin(rotation_angle).toFloat())
+    var angle = rotation_angle
+        set(value) {
+            field = value - Math.PI * 2 * (value / 2 / Math.PI).toInt()
+        }
+    val direction get() =  Vector2(Math.cos(angle).toFloat(), Math.sin(angle).toFloat())
     var coords: Vector2 = Vector2(x, y)
 
     init {
